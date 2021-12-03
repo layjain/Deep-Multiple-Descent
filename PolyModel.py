@@ -1,12 +1,9 @@
 import numpy as np
 
 def linear_solve(A, b):
-  print(f"A.shape: {A.shape}, b.shape: {b.shape}")
   AAT = A@(A.T)
-  print(f"AAT:{AAT.shape}")
   # w = np.linalg.solve(AAT, b)
   w = np.linalg.lstsq(AAT, b)[0]
-  print(f"w:{w.shape}")
   x = (A.T)@w
   return x
 
@@ -34,7 +31,8 @@ class PolyModel:
       if self.a and (not refit):
          raise ValueError("Re-Fitting")
       A = self.generate_features(X)
-      self.a = linear_solve(A, Y)
+      # self.a = linear_solve(A, Y)
+      self.a = np.linalg.lstsq(A, Y)[0]
       return self
 
   def predict(self, X, A=None):
