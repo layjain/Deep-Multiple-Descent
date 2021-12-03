@@ -25,11 +25,12 @@ class PolyDataGen:
 class TrigDataGen:
    def __init__(self):
        self.phi = np.random.random()*2*np.pi
-       self.a = np.random.random()*2
+       self.a = np.random.random()*10
 
    def generate_data(self, num_datapoints, noise, minimum, maximum):
        x = np.random.random(num_datapoints)*(maximum-minimum)+minimum
        y = np.sin(self.a * x + self.phi)
+       y = y.reshape((-1,1))
        return x.reshape(-1, 1), (y+np.random.randn(num_datapoints,1)*noise)
 
 
