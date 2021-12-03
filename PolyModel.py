@@ -1,8 +1,12 @@
 import numpy as np
 
 def linear_solve(A, b):
+  print(f"A.shape: {A.shape}, b.shape: {b.shape}")
   AAT = A@(A.T)
-  w = np.linalg.solve(AAT, b)
+  print(f"AAT:{AAT.shape}")
+  # w = np.linalg.solve(AAT, b)
+  w = np.linalg.lstsq(AAT, b)[0]
+  print(f"w:{w.shape}")
   x = (A.T)@w
   return x
 
@@ -17,14 +21,15 @@ class PolyModel:
       self.a = None
   
   def generate_features(self, X):
-      arrays = [X**i for i in range(n)]
+      X = X.flatten()
+      arrays = [X**i for i in range(self.n)]
       A = np.stack(arrays, axis = 1)
       return A
 
   def fit(self, X, Y, refit=False):
       '''
-      X: (d,)
-      Y: (d,)
+      X: (d,1)
+      Y: (d,1)
       '''
       if self.a and (not refit):
          raise ValueError("Re-Fitting")
