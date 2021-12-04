@@ -29,8 +29,9 @@ class TrigDataGen:
 
    def generate_data(self, num_datapoints, noise, minimum, maximum):
        x = np.random.random(num_datapoints)*(maximum-minimum)+minimum
-       # y = (np.sin(self.a * x + self.phi)/x)
-       y = (np.sin(self.a * x + self.phi))
+    #    y = 1/x
+       y = x
+    #    y = (np.sin(self.a * x + self.phi))/x
        y = y.reshape((-1,1))
        return x.reshape(-1, 1), (y+np.random.randn(num_datapoints,1)*noise)
 
