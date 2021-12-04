@@ -29,8 +29,22 @@ class TrigDataGen:
 
    def generate_data(self, num_datapoints, noise, minimum, maximum):
        x = np.random.random(num_datapoints)*(maximum-minimum)+minimum
-       y = np.sin(self.a * x + self.phi)
+       # y = (np.sin(self.a * x + self.phi)/x)
+       y = (np.sin(self.a * x + self.phi))
        y = y.reshape((-1,1))
        return x.reshape(-1, 1), (y+np.random.randn(num_datapoints,1)*noise)
+
+
+class InversePolyDataGen:
+   def __init__(self):
+       self.phi = np.random.random()*2*np.pi
+       self.a = np.random.random()*10
+
+   def generate_data(self, num_datapoints, noise, minimum, maximum):
+       x = np.random.random(num_datapoints)*(maximum-minimum)+minimum
+       y = (1/x+0.001)
+       y = y.reshape((-1,1))
+       return x.reshape(-1, 1), (y+np.random.randn(num_datapoints,1)*noise)
+
 
 
