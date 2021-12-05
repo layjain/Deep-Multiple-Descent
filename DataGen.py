@@ -35,6 +35,13 @@ class TrigDataGen:
        y = y.reshape((-1,1))
        return x.reshape(-1, 1), (y+np.random.randn(num_datapoints,1)*noise)
 
+   def add_noise(self, y_0, noise):
+       '''
+       y_0 <- (D,), noiseless
+       noise <- std
+       '''   
+       return y_0+np.random.randn(y_0.shape[0],1)*noise
+
 
 class InversePolyDataGen:
    def __init__(self):
