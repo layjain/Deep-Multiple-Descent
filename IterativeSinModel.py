@@ -69,7 +69,7 @@ class IterativeSinModel:
             RMSE
         '''
         dt = lambda X : fgsm.loss_derivative_mse(X,y,self.a.reshape(-1,1))
-        adversarial_data = fgsm.fgsm_adversarial_data(self.A[:,:n_fit], dt, epsilon)
+        adversarial_data = fgsm.fgsm_adversarial_data(self.A_test[:,:n_fit], dt, epsilon)
         y_pred = self.predict(n_fit, adversarial_data)
         return np.linalg.norm(y-y_pred, ord=2)/np.sqrt(y.shape[0])
 

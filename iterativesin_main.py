@@ -7,12 +7,12 @@ num_datapoints = 20
 num_test = 500
 minimum = -1
 maximum = 1
-train_noise = 0.1 # std
+train_noise = 0.0 # std
 test_noise = 0.
 max_capacity = 2000
 N_SKIP = 5
 REPEAT = 1 # Repeat with same coefficients
-EPSILON = 0.1
+EPSILON = 1
 
 data_gen = DataGen.TrigDataGen()
 
@@ -38,7 +38,7 @@ for _ in range(REPEAT):
         model.fit(*train_data, capacity)
         train_rmse = model.score_train(train_data[1], capacity)
         test_rmse = model.score_test(test_data[1], capacity)
-        adversarial_rmse = model.score_adversarial(train_data[1], capacity, EPSILON)
+        adversarial_rmse = model.score_adversarial(test_data[1], capacity, EPSILON)
         train_rmses.append(train_rmse)
         test_rmses.append(test_rmse)
         adversarial_rmses.append(adversarial_rmse)
